@@ -236,6 +236,35 @@ ul {
     align-items: center;
 }
 
+.main-logo {
+    height: 100px;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.header-quick-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-white);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.quick-link:hover {
+    color: var(--primary);
+}
+
+.quick-link i {
+    font-size: 1.2rem;
+}
+
 .logo-text {
     font-family: var(--font-heading);
     font-size: 2rem;
@@ -1040,8 +1069,30 @@ ul {
         padding: 70px 0;
     }
 
+    .main-logo {
+        height: 60px;
+        /* Reduz a logo no mobile para caber os links ao lado */
+    }
+
+    .header-quick-links {
+        gap: 12px;
+    }
+
+    .quick-link {
+        font-size: 0.75rem;
+        flex-direction: column;
+        gap: 2px;
+        text-align: center;
+    }
+
+    .quick-link i {
+        font-size: 1.2rem;
+    }
+
     .menu-toggle {
         display: block;
+        margin-left: 10px;
+        /* Dá uma separadinha extra do Fale Conosco */
     }
 
     .nav-links {
@@ -1069,7 +1120,7 @@ ul {
     }
 
     .hero {
-        padding-top: 100px;
+        padding-top: 130px;
         min-height: 100vh;
         height: auto;
         padding-bottom: 50px;
