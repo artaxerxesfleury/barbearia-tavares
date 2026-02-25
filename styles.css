@@ -304,6 +304,14 @@ ul {
     border-radius: 50px;
 }
 
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: var(--text-white);
+    cursor: pointer;
+    z-index: 1001;
+}
+
 .btn-whatsapp {
     background-color: #25D366;
     color: white;
@@ -1032,10 +1040,39 @@ ul {
         padding: 70px 0;
     }
 
-    .nav-links,
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.98);
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 0;
+        gap: 25px;
+        border-bottom: 2px solid var(--primary);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
     .nav-container .btn,
     .walkin-badge {
         display: none;
+    }
+
+    .hero {
+        padding-top: 100px;
+        min-height: 100vh;
+        height: auto;
+        padding-bottom: 50px;
     }
 
     .hero-title {

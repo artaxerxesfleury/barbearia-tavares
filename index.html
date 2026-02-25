@@ -42,6 +42,11 @@
             </nav>
 
             <div class="walkin-badge"><i class="fa-solid fa-chair"></i> Ordem de Chegada</div>
+
+            <!-- Hamburger Menu for Mobile -->
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
     </header>
 
@@ -397,6 +402,27 @@
     </footer>
 
     <script>
+        // Menu Mobile Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                mobileMenu.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                mobileMenu.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            }
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenu.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            });
+        });
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
