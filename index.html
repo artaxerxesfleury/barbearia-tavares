@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia vares | Desde 2015</title>
+    <meta name="description"
+        content="Sua barbearia de confiança em Rio de Janeiro. Cortes, Barboterapia e Inteligência Artificial para visagismo facial.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Face API -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <!-- ========================================== -->
+            <!-- 1. LOGO PRINCIPAL (CABECALHO) -->
+            <!-- Salve sua logo na pasta "assets" como "logo.png" -->
+            <!-- ========================================== -->
+            <a href="#" class="logo">
+                <img src="assets/logo.png" alt="Logo Barbearia Tavares" class="main-logo"
+                    style="height: 100px; object-fit: contain;">
+            </a>
+
+            <nav class="nav-links">
+                <a href="#inicio" class="nav-link">Início</a>
+                <a href="#servicos" class="nav-link">Serviços</a>
+                <a href="#visagismo" class="nav-link ai-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Visagismo
+                    IA</a>
+                <a href="#assinatura" class="nav-link">Clube Tavares</a>
+            </nav>
+
+            <div class="walkin-badge"><i class="fa-solid fa-chair"></i> Ordem de Chegada</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <!-- ========================================== -->
+            <!-- 2. TEXTOS DA SEÇÃO PRINCIPAL (INÍCIO) -->
+            <!-- Altere os títulos e a descrição que aparecem logo ao abrir o site -->
+            <!-- ========================================== -->
+            <div class="hero-badge">Tradição desde 2015</div>
+            <div class="hero-award"><i class="fa-solid fa-trophy" style="color:var(--primary); margin-right: 8px;"></i>
+                Melhor Barbearia de Sarapuí (2021/2022)</div>
+            <h1 class="hero-title">A arte do corte clássico <br>encontra a tecnologia do futuro.</h1>
+            <p class="hero-desc">Viva a experiência completa de uma barbearia tradicional com a inovação exclusiva da
+                nossa IA de visagismo, feita para encontrar o visual perfeito para o formato do seu rosto.</p>
+
+            <div class="hero-cta">
+                <!-- ========================================== -->
+                <!-- WHATSAPP LINK: Trocando o "SEUNUMERO" pelo seu número com DDD (ex: 5511999999999) -->
+                <!-- ========================================== -->
+                <a href="https://wa.me/SEUNUMERO" target="_blank" class="btn btn-primary btn-large"><i
+                        class="fa-brands fa-whatsapp"></i> Nosso WhatsApp</a>
+                <a href="#assinatura" class="btn btn-outline btn-large">Ver Planos Mensais</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-num">+8.000</span>
+                    <span class="stat-text">Clientes<br>Satisfeitos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">9</span>
+                    <span class="stat-text">Anos de<br>Experiência</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="services py-section bg-dark reveal">
+        <div class="container">
+            <div class="section-header text-center">
+                <p class="section-subtitle">O Que Fazemos de Melhor</p>
+                <h2 class="section-title">Nossos Serviços Clássicos</h2>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- 3. SERVIÇOS E PREÇOS -->
+            <!-- Altere o nome, descrição e os valores (R$) de cada serviço -->
+            <!-- ========================================== -->
+            <div class="services-grid">
+                <!-- Serviço 1 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-scissors"></i></div>
+                    <h3>Corte Clássico & Moderno</h3>
+                    <p>Tesoura, máquina ou fade perfeito. Nossos barbeiros dominam todas as técnicas para o seu estilo.
+                    </p>
+                    <span class="service-price">R$ 55</span>
+                </div>
+
+                <!-- Serviço 2 -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-razor"></i></div>
+                    <h3>Barboterapia e Toalha Quente</h3>
+                    <p>Ritual completo para relaxar enquanto cuidamos da sua barba com produtos premium e toalha quente.
+                    </p>
+                    <span class="service-price">R$ 45</span>
+                </div>
+
+                <!-- Serviço 3 (Destaque) -->
+                <div class="service-card highlighted-service">
+                    <div class="service-icon"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3>Combo Tavares (Corte + Barba)</h3>
+                    <p>A experiência completa para você sair renovado. Inclui lavagem, corte, barboterapia e
+                        finalização.</p>
+                    <span class="service-price">R$ 90</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visagismo IA Section -->
+    <section id="visagismo" class="ai-visagismo py-section reveal">
+        <div class="container ai-grid">
+            <div class="ai-content">
+                <div class="ai-badge"><i class="fa-solid fa-robot"></i> Inovação Exclusiva</div>
+                <h2 class="section-title">IA de Visagismo Facial</h2>
+                <p class="ai-desc">Não sabe qual corte fica melhor em você? Nossa Inteligência Artificial analisa o
+                    formato do seu rosto, tipo de cabelo e estilo pessoal para sugerir o corte e a barba perfeitos.</p>
+
+                <ul class="ai-features">
+                    <li><i class="fa-regular fa-circle-check"></i> Escaneamento facial 3D pelo celular ou no espelho da
+                        barbearia.</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Análise de formato de rosto (Quadrado, Oval,
+                        Triangular, etc).</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Simulação de como o corte ficará antes mesmo de usar
+                        a tesoura.</li>
+                </ul>
+
+                <a href="#testar-ia" class="btn btn-secondary ai-btn">
+                    <i class="fa-solid fa-camera"></i> Fazer Análise Gratuita Agora
+                </a>
+            </div>
+
+            <div class="ai-demo">
+                <div class="scanner-container" id="scanner-container">
+                    <!-- Scanner Animation Elements -->
+                    <div class="scanner-frame" id="scanner-frame">
+                        <!-- ========================================== -->
+                        <!-- 4. IMAGEM DE DEMONSTRAÇÃO DA IA -->
+                        <!-- Coloque a foto de um modelo na pasta "assets" com o nome "modelo-ia.jpg" -->
+                        <!-- ========================================== -->
+                        <img src="assets/modelo-ia.jpg" alt="Face Scanning" class="scanned-face" id="scanned-face">
+
+                        <video id="webcam-feed" class="scanned-face" autoplay playsinline
+                            style="display: none;"></video>
+                        <canvas id="snapshot-canvas" style="display: none;"></canvas>
+
+                        <!-- Face Framing UI -->
+                        <div class="face-guide" id="face-guide" style="display: none;"></div>
+                        <div class="alignment-status" id="alignment-status" style="display: none;">Carregando Modelos
+                            IA...</div>
+
+                        <div class="scanner-line" id="scanner-line" style="display: none;"></div>
+                        <div class="scanner-corners top-left"></div>
+                        <div class="scanner-corners top-right"></div>
+                        <div class="scanner-corners bottom-left"></div>
+                        <div class="scanner-corners bottom-right"></div>
+
+                        <div class="ai-processing-overlay" id="ai-processing-overlay" style="display: none;">
+                            <i class="fa-solid fa-microchip fa-spin"></i>
+                            <p>Analisando traços faciais...</p>
+                        </div>
+                    </div>
+
+                    <div class="ai-controls" id="ai-controls">
+                        <button class="btn btn-secondary" id="btn-start-camera"
+                            style="flex: 1; padding: 10px; font-size: 0.9rem;"><i class="fa-solid fa-camera"></i> Usar
+                            Câmera</button>
+                        <button class="btn btn-outline" id="btn-upload-photo"
+                            onclick="document.getElementById('photo-upload').click()"
+                            style="flex: 1; padding: 10px; font-size: 0.9rem;"><i class="fa-solid fa-upload"></i> Enviar
+                            Foto</button>
+                        <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                    </div>
+
+                    <div class="ai-controls" id="ai-capture-controls" style="display: none;">
+                        <button class="btn btn-secondary btn-full" id="btn-capture"><i
+                                class="fa-solid fa-wand-magic-sparkles"></i> Analisar Rosto</button>
+                    </div>
+
+                    <div class="ai-results-card" id="ai-results-card" style="display: none;">
+                        <div class="result-header">Resultado da Análise</div>
+                        <div class="result-body">
+                            <p><strong>Formato do Rosto:</strong> <span id="res-rosto">Calculando...</span></p>
+                            <p><strong>Corte Sugerido:</strong> <span id="res-corte">Calculando...</span></p>
+                            <p><strong>Barba Sugerida:</strong> <span id="res-barba">Calculando...</span></p>
+                            <div class="match-score" id="res-score">Match: 0%</div>
+                        </div>
+                        <button class="btn btn-outline btn-full" id="btn-reset-ai"
+                            style="margin-top: 15px; padding: 5px; font-size: 0.8rem;">Refazer Análise</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Claro de Assinaturas (Clube Tavares) -->
+    <section id="assinatura" class="subscription py-section bg-dark reveal">
+        <div class="container">
+            <div class="section-header text-center">
+                <p class="section-subtitle">Economize Todo Mês</p>
+                <h2 class="section-title">Clube Tavares</h2>
+                <p class="section-desc">Pague um valor fixo mensal e mantenha seu visual sempre em dia. Sem limite de
+                    agendamentos no mês.</p>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- 5. PLANOS DE ASSINATURA -->
+            <!-- Altere os preços e benefícios mensais de cada plano -->
+            <!-- ========================================== -->
+            <div class="pricing-grid">
+                <!-- Plano Basic -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Plano Cabelo</h3>
+                        <div class="price-tag">
+                            <span class="currency">R$</span>
+                            <span class="amount">119</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul>
+                            <li>Cortes ilimitados no mês</li>
+                            <li>Lavagem e finalização premium</li>
+                            <li>Desconto de 10% na cerveja</li>
+                            <li>10% OFF em produtos (pomadas)</li>
+                        </ul>
+                        <!-- ========================================== -->
+                        <!-- Coloque o seu número no link abaixo também -->
+                        <!-- ========================================== -->
+                        <a href="https://wa.me/SEUNUMERO?text=Olá, quero assinar o Plano Cabelo!" target="_blank"
+                            class="btn btn-outline btn-full"><i class="fa-brands fa-whatsapp"></i> Assinar via
+                            WhatsApp</a>
+                    </div>
+                </div>
+
+                <!-- Plano Premium (Destaque) -->
+                <div class="pricing-card premium">
+                    <div class="card-badge">O Mais Vantajoso</div>
+                    <div class="pricing-header">
+                        <h3>Plano Completo</h3>
+                        <div class="price-tag">
+                            <span class="currency">R$</span>
+                            <span class="amount">189</span>
+                            <span class="period">/mês</span>
+                        </div>
+                        <p class="plan-desc">Cabelo + Barba</p>
+                    </div>
+                    <div class="pricing-body">
+                        <ul>
+                            <li>Cortes e Barbas ilimitados</li>
+                            <li>Barboterapia e Toalha Quente</li>
+                            <li>Uma cerveja grátis por visita</li>
+                            <li>Atendimento VIP</li>
+                            <li>20% OFF em produtos</li>
+                        </ul>
+                        <a href="https://wa.me/SEUNUMERO?text=Olá, quero assinar o Plano Completo!" target="_blank"
+                            class="btn btn-primary btn-full"><i class="fa-brands fa-whatsapp"></i> Assinar via
+                            WhatsApp</a>
+                    </div>
+                </div>
+
+                <!-- Plano Barba -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Plano Barba</h3>
+                        <div class="price-tag">
+                            <span class="currency">R$</span>
+                            <span class="amount">99</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul>
+                            <li>Barbas ilimitadas no mês</li>
+                            <li>Barboterapia e Toalha Quente</li>
+                            <li>Desconto de 10% na cerveja</li>
+                            <li>10% OFF em óleos e balms</li>
+                        </ul>
+                        <a href="https://wa.me/SEUNUMERO?text=Olá, quero assinar o Plano Barba!" target="_blank"
+                            class="btn btn-outline btn-full"><i class="fa-brands fa-whatsapp"></i> Assinar via
+                            WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossa Localização (Mapas e Reviews reais) -->
+    <section id="localizacao" class="location py-section reveal">
+        <div class="container">
+            <div class="section-header text-center">
+                <p class="section-subtitle">Onde a Mágica Acontece</p>
+                <h2 class="section-title">Nossa Localização</h2>
+                <br>
+                <div class="location-actions"
+                    style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
+                    <!-- Botão de GPS / Rota -->
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Avenida+Julio+Holtz+589+Sarapui+SP"
+                        target="_blank" class="review-badge" style="margin-bottom: 0;">
+                        <i class="fa-solid fa-location-arrow" style="color: var(--primary);"></i> Traçar Rota no GPS
+                    </a>
+
+                    <!-- Botão de Avaliações -->
+                    <a href="https://share.google/sHS5uydIv0V5xjZkW" target="_blank" class="review-badge"
+                        style="margin-bottom: 0;">
+                        <i class="fa-brands fa-google"></i> Ler Avaliações (⭐ 5.0)
+                    </a>
+                </div>
+            </div>
+
+            <div class="map-container" style="position: relative;">
+                <!-- Iframe do Google Maps Interativo -->
+                <iframe
+                    src="https://maps.google.com/maps?q=Avenida%20Julio%20Holtz,%20589,%20Sarapui,%20SP&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <!-- Overlay clicável para o celular abrir o App do Maps direto na Rota -->
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Avenida+Julio+Holtz+589+Sarapui+SP"
+                    target="_blank" class="map-overlay-btn"
+                    style="position: absolute; bottom: 20px; right: 20px; background: var(--primary); color: #000; padding: 10px 20px; border-radius: 5px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-map-location-dot"></i> Iniciar Rota (App)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <!-- ========================================== -->
+                <!-- LOGO DO RODAPÉ -->
+                <!-- Ele usará a mesma "logo.png" da pasta assets -->
+                <!-- ========================================== -->
+                <a href="#" class="logo">
+                    <img src="assets/logo.png" alt="Logo Rodapé" style="height: 60px; object-fit: contain;">
+                </a>
+                <p>Desde 2015, combinando a tradição da verdadeira barbearia clássica com tecnologia de ponta para o
+                    homem moderno.</p>
+                <div class="socials">
+                    <a href="https://instagram.com/abarbeariatavares" target="_blank"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Edição Rápida</h3>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#servicos">Serviços e Preços</a></li>
+                    <li><a href="#visagismo">Inteligência Artificial</a></li>
+                    <li><a href="#assinatura">Gerenciar Planos</a></li>
+                </ul>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- 6. CONTATOS E ENDEREÇO (RODAPÉ) -->
+            <!-- Altere o Local, Telefone e Horários de funcionamento -->
+            <!-- ========================================== -->
+            <div class="footer-contact">
+                <h3>Onde Estamos</h3>
+                <p><i class="fa-solid fa-location-dot"></i> Avenida Julio Holtz, nº 589 - Sarapuí/SP</p>
+                <p><i class="fa-solid fa-phone"></i> (11) 99999-9999</p>
+                <br>
+                <h3>Horários</h3>
+                <p>Segunda a Sábado: 09h às 19h</p>
+                <p>Domingo: Fechado</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Barbearia Tavares. Todos os direitos reservados. Site de fácil edição para o dono.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // --- FUNCIONALIDADE DA IA DE VISAGISMO DINÂMICO --- //
+        const btnStartCamera = document.getElementById('btn-start-camera');
+        const photoUploadInput = document.getElementById('photo-upload');
+        const btnCapture = document.getElementById('btn-capture');
+        const btnResetAI = document.getElementById('btn-reset-ai');
+
+        const videoElement = document.getElementById('webcam-feed');
+        const imageElement = document.getElementById('scanned-face');
+
+        const aiControls = document.getElementById('ai-controls');
+        const aiCaptureControls = document.getElementById('ai-capture-controls');
+        const aiProcessingOverlay = document.getElementById('ai-processing-overlay');
+        const scannerLine = document.getElementById('scanner-line');
+        const aiResultsCard = document.getElementById('ai-results-card');
+
+        const faceGuide = document.getElementById('face-guide');
+        const alignmentStatus = document.getElementById('alignment-status');
+
+        const resRosto = document.getElementById('res-rosto');
+        const resCorte = document.getElementById('res-corte');
+        const resBarba = document.getElementById('res-barba');
+        const resScore = document.getElementById('res-score');
+
+        let scannerInterval;
+        let detectionInterval;
+        let webcamStream = null;
+        let modelsLoaded = false;
+        let isFaceAligned = false;
+        let currentDetectedShape = "Desconhecido";
+
+        // Carregar Modelos do face-api.js
+        async function loadModels() {
+            try {
+                // Usando o CDN para os modelos tinyFaceDetector e faceLandmark68Net
+                await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model');
+                await faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model');
+                modelsLoaded = true;
+                alignmentStatus.textContent = "IA Pronta. Posicione seu rosto.";
+                setTimeout(() => alignmentStatus.style.display = 'none', 2000);
+            } catch (error) {
+                console.error("Erro ao carregar modelos da IA", error);
+                alignmentStatus.textContent = "Erro ao iniciar IA. Usando modo simulado.";
+            }
+        }
+
+        // Detectar formato heurístico pelas landmarks
+        function detectFaceShape(landmarks) {
+            const jawOutline = landmarks.getJawOutline();
+            // Pegamos a largura do rosto (distância entre os extremos da mandíbula)
+            const jawWidth = faceapi.euclideanDistance([jawOutline[0].x, jawOutline[0].y], [jawOutline[16].x, jawOutline[16].y]);
+            // Altura do rosto (mento até a testa/olhos)
+            const faceHeight = faceapi.euclideanDistance([landmarks.positions[8].x, landmarks.positions[8].y], [landmarks.positions[27].x, landmarks.positions[27].y]) * 1.5; // multiplicador descobrindo altura total
+
+            const jawRatio = jawWidth / faceHeight;
+
+            // Lógica dinâmica (Heurística simplificada - Sem random)
+            if (jawRatio > 0.85) return "Quadrado";
+            if (jawRatio < 0.65) return "Longo";
+            if (jawRatio > 0.70 && jawRatio < 0.85) {
+                // Checar queixo
+                const chinWidth = faceapi.euclideanDistance([jawOutline[5].x, jawOutline[5].y], [jawOutline[11].x, jawOutline[11].y]);
+                if (chinWidth / jawWidth < 0.4) return "Triangular";
+                if (chinWidth / jawWidth < 0.5) return "Diamante";
+                return "Oval"; // O formato mais comum harmonioso
+            }
+            return "Redondo";
+        }
+
+        // Loop de Alinhamento contínuo
+        async function checkFaceAlignment() {
+            if (!modelsLoaded || videoElement.style.display === 'none' || videoElement.paused) return;
+
+            // scoreThreshold 0.85 garante que apenas ROSTOS HUMANOS CLAROS sejam de fato captados.
+            const options = new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.85, inputSize: 512 });
+            const detections = await faceapi.detectSingleFace(videoElement, options).withFaceLandmarks();
+
+            if (detections) {
+                const box = detections.detection.box;
+                const videoWidth = videoElement.videoWidth || videoElement.clientWidth;
+                const videoHeight = videoElement.videoHeight || videoElement.clientHeight;
+
+                // Verificando se o rosto está relativamente no centro (simulando a elipse)
+                const isCenteredX = (box.x > videoWidth * 0.1) && ((box.x + box.width) < videoWidth * 0.9);
+                const isCenteredY = (box.y > videoHeight * 0.1) && ((box.y + box.height) < videoHeight * 0.9);
+                const isBigEnough = (box.width > videoWidth * 0.3);
+
+                if (isCenteredX && isCenteredY && isBigEnough) {
+                    isFaceAligned = true;
+                    faceGuide.classList.add('aligned');
+                    alignmentStatus.style.display = 'block';
+                    alignmentStatus.textContent = "Rosto Alinhado! Pronto para Análise.";
+                    alignmentStatus.classList.add('success');
+                    btnCapture.disabled = false;
+                    btnCapture.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Analisar Rosto';
+
+                    currentDetectedShape = detectFaceShape(detections.landmarks);
+                } else {
+                    isFaceAligned = false;
+                    faceGuide.classList.remove('aligned');
+                    alignmentStatus.style.display = 'block';
+                    alignmentStatus.textContent = "Aproxime e centralize o rosto...";
+                    alignmentStatus.classList.remove('success');
+                    btnCapture.disabled = true;
+                    btnCapture.innerHTML = '<i class="fa-solid fa-lock"></i> Centralize o Rosto';
+                }
+            } else {
+                isFaceAligned = false;
+                faceGuide.classList.remove('aligned');
+                alignmentStatus.style.display = 'block';
+                alignmentStatus.textContent = "Nenhum rosto detectado.";
+                alignmentStatus.classList.remove('success');
+                btnCapture.disabled = true;
+            }
+
+            if (aiCaptureControls.style.display !== 'none') {
+                detectionInterval = requestAnimationFrame(checkFaceAlignment);
+            }
+        }
+
+        // Iniciar processo todo
+        window.addEventListener('DOMContentLoaded', loadModels);
+
+        // Ligar a Câmera
+        btnStartCamera.addEventListener('click', async () => {
+            try {
+                webcamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                videoElement.srcObject = webcamStream;
+                videoElement.addEventListener('loadedmetadata', () => {
+                    videoElement.play();
+                    checkFaceAlignment(); // Inicia o loop apenas depois da webcam dar play
+                });
+
+                imageElement.style.display = 'none';
+                videoElement.style.display = 'block';
+
+                aiControls.style.display = 'none';
+                aiCaptureControls.style.display = 'flex';
+                aiResultsCard.style.display = 'none';
+
+                faceGuide.style.display = 'block';
+                alignmentStatus.style.display = 'block';
+                alignmentStatus.textContent = "Procurando rosto...";
+            } catch (err) {
+                alert("Não foi possível acessar a câmera. Você pode usar a opção de enviar foto.");
+            }
+        });
+
+        // Upload de Imagem (Tratamento para Foto estática)
+        photoUploadInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    imageElement.src = event.target.result;
+                    imageElement.style.display = 'block';
+                    videoElement.style.display = 'none';
+                    if (webcamStream) webcamStream.getTracks().forEach(t => t.stop());
+
+                    faceGuide.style.display = 'block';
+                    faceGuide.classList.remove('aligned');
+                    alignmentStatus.style.display = 'block';
+                    alignmentStatus.textContent = "Analisando foto...";
+                    alignmentStatus.classList.remove('success');
+
+                    aiControls.style.display = 'flex';
+                    aiCaptureControls.style.display = 'none';
+
+                    // Análise estática com critérios rígidos
+                    if (modelsLoaded) {
+                        const options = new faceapi.TinyFaceDetectorOptions({ scoreThreshold: 0.8, inputSize: 512 });
+                        const detections = await faceapi.detectSingleFace(imageElement, options).withFaceLandmarks();
+
+                        if (detections) {
+                            currentDetectedShape = detectFaceShape(detections.landmarks);
+                            faceGuide.className = 'face-guide aligned';
+                            alignmentStatus.textContent = "Rosto Detectado com Sucesso!";
+                            alignmentStatus.className = 'alignment-status success';
+
+                            // Mostrar botão de analisar depois que o rosto autêntico for encontrado
+                            aiCaptureControls.style.display = 'flex';
+                            btnCapture.disabled = false;
+                            btnCapture.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Analisar Formato';
+                            isFaceAligned = true; // Necessário para bypassar o IF dentro do clique
+
+                            // Parar de ser automático, forçar o usuário a clicar, 
+                            // só pra manter a interface coesa
+                        } else {
+                            alignmentStatus.textContent = "ERRO: Nenhum rosto humano claro e visível encontrado.";
+                            alignmentStatus.className = 'alignment-status';
+                            faceGuide.className = 'face-guide';
+
+                            // Reativar controles de envio para tentar com outra foto
+                            aiControls.style.display = 'flex';
+                        }
+                    } else {
+                        alignmentStatus.textContent = "Aguarde o modelo carregar e tente novamente.";
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Efeito Botão de Scroll
+        document.querySelector('.ai-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('visagismo').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('scanner-frame').style.boxShadow = '0 0 40px rgba(0, 240, 255, 0.8)';
+            setTimeout(() => { document.getElementById('scanner-frame').style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5)'; }, 1500);
+        });
+
+        // Botão Analisar Rosto
+        btnCapture.addEventListener('click', () => {
+            if (isFaceAligned) {
+                runAIAnalysis();
+            }
+        });
+
+        async function runAIAnalysis() {
+            if (videoElement.style.display === 'block') videoElement.pause();
+            cancelAnimationFrame(detectionInterval);
+
+            aiCaptureControls.style.display = 'none';
+            aiControls.style.display = 'none';
+            faceGuide.style.display = 'none';
+            alignmentStatus.style.display = 'none';
+            scannerLine.style.display = 'block';
+            aiProcessingOverlay.style.display = 'flex';
+            aiResultsCard.style.display = 'none';
+
+            let pos = 0; let dir = 1;
+            scannerInterval = setInterval(() => {
+                pos += 2 * dir;
+                if (pos > 95 || pos < 2) dir *= -1;
+                scannerLine.style.top = pos + '%';
+            }, 20);
+
+            try {
+                // Solicitar Análise do Servidor Node.js (Gemini AI)
+                const res = await fetch('/api/gemini/visagismo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentDetectedShape })
+                });
+
+                const data = await res.json();
+
+                clearInterval(scannerInterval);
+                scannerLine.style.display = 'none';
+                aiProcessingOverlay.style.display = 'none';
+
+                if (data.error) {
+                    alert("Erro do Servidor AI: " + data.error);
+                } else {
+                    resRosto.textContent = data.rosto;
+                    resCorte.textContent = data.corte;
+                    resBarba.textContent = data.barba;
+                    resScore.textContent = data.matchPercentage + "% Match Ideal";
+                    aiResultsCard.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                clearInterval(scannerInterval);
+                scannerLine.style.display = 'none';
+                aiProcessingOverlay.style.display = 'none';
+                alert("Erro de conexão com o servidor. O servidor Node.js está rodando?");
+            }
+        }
+
+        // Refazer Análise
+        btnResetAI.addEventListener('click', () => {
+            aiResultsCard.style.display = 'none';
+            faceGuide.classList.remove('aligned');
+            alignmentStatus.classList.remove('success');
+            currentDetectedShape = "Desconhecido";
+
+            if (videoElement.srcObject) {
+                videoElement.play();
+                aiControls.style.display = 'none';
+                aiCaptureControls.style.display = 'flex';
+                faceGuide.style.display = 'block';
+                checkFaceAlignment();
+            } else {
+                imageElement.src = "assets/modelo-ia.jpg";
+                aiControls.style.display = 'flex';
+                faceGuide.style.display = 'none';
+                alignmentStatus.style.display = 'none';
+            }
+            photoUploadInput.value = "";
+        });
+
+        // Interação de Scroll (Animações Reveal)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+
+</html>
