@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+
+{% block title %}Painel Administrativo - Damas Acessórios{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-6 animate-on-scroll fade-in">
+        <div>
+            <h1 class="text-4xl font-serif font-black text-[#0d4e66] mb-2">Painel de Gestão</h1>
+            <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Gerencie seu catálogo de luxo</p>
+        </div>
+        <div class="flex gap-4">
+            <a href="{{ url_for('index') }}"
+                class="px-6 py-3 border border-gray-100 text-gray-400 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-50 transition rounded-lg">Ver
+                Loja</a>
+            <a href="{{ url_for('logout') }}"
+                class="px-6 py-3 border border-red-100 text-red-500 text-[10px] font-bold uppercase tracking-widest hover:bg-red-50 transition rounded-lg">Sair</a>
+        </div>
+    </div>
+
+    <!-- DASHBOARD STATS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 animate-on-scroll fade-in">
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+            <div>
+                <p class="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">Total Produtos</p>
+                <h3 class="text-3xl font-serif text-[#0d4e66]">{{ total_produtos }}</h3>
+            </div>
+            <div class="p-4 bg-blue-50 text-[#146b8a] rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" />
+                </svg>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+            <div>
+                <p class="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">Categorias</p>
+                <h3 class="text-3xl font-serif text-[#0d4e66]">{{ total_categorias }}</h3>
+            </div>
+            <div class="p-4 bg-teal-50 text-teal-600 rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                </svg>
+            </div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+            <div>
+                <p class="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">Valor em Estoque</p>
+                <h3 class="text-3xl font-serif text-[#0d4e66]">R$ {{ "%.2f"|format(valor_estoque)|replace('.', ',') }}
+                </h3>
+            </div>
+            <div class="p-4 bg-amber-50 text-amber-600 rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="mb-8 space-y-2 animate-on-scroll fade-in">
+        {% for category, message in messages %}
+        <div class="px-6 py-4 rounded-xl text-sm font-medium
+             {% if category == 'success' %}bg-green-50 text-green-700 border border-green-100
+             {% elif category == 'error' %}bg-red-50 text-red-700 border border-red-100
+             {% elif category == 'warning' %}bg-amber-50 text-amber-700 border border-amber-100
+             {% else %}bg-blue-50 text-blue-700 border border-blue-100{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- GESTÃO DE ESTRUTURA (CATEGORIAS) -->
+    <section id="categorias"
+        class="bg-white p-8 md:p-12 rounded-2xl border border-gray-100 shadow-sm mb-16 animate-on-scroll fade-in">
+        <div class="flex items-center gap-4 mb-10 border-b border-gray-50 pb-6">
+            <div class="w-10 h-10 bg-[#146b8a] rounded-full flex items-center justify-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-serif text-[#0d4e66]">Gestão de Estrutura</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Categorias -->
+            <div>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Categorias Principais</h3>
+                <form action="{{ url_for('admin_add_categoria') }}" method="POST" class="flex gap-2 mb-8">
+                    <input type="text" name="nome" placeholder="Nova Categoria (ex: Joias)"
+                        class="flex-1 p-3 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#146b8a] transition"
+                        required>
+                    <button type="submit"
+                        class="bg-[#146b8a] text-white px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#0d4e66] transition">Add</button>
+                </form>
+                <div class="space-y-3">
+                    {% for cat in categorias %}
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl group">
+                        <div>
+                            <span class="text-sm font-bold text-[#0d4e66] uppercase tracking-wider">{{ cat.nome
+                                }}</span>
+                            <span class="text-[9px] text-gray-300 ml-2">{{ cat.subcategorias | length }} subcategorias ·
+                                {{ cat.produtos | length }} produtos</span>
+                        </div>
+                        <!-- Deletar via POST (seguro contra CSRF e acesso direto) -->
+                        <form action="{{ url_for('admin_del_categoria', id=cat.id) }}" method="POST"
+                            onsubmit="return confirm('Isso excluirá todas as subcategorias e produtos vinculados. Confirmar?')">
+                            <button type="submit" class="text-red-300 hover:text-red-500 transition p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M3 6h18" />
+                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p class="text-xs text-gray-300 text-center py-4">Nenhuma categoria cadastrada.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Subcategorias -->
+            <div>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Subcategorias</h3>
+                <form action="{{ url_for('admin_add_subcategoria') }}" method="POST" class="flex flex-col gap-3 mb-8">
+                    <select name="categoria_id"
+                        class="w-full p-3 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#146b8a] transition"
+                        required>
+                        <option value="">Selecionar Categoria Pai...</option>
+                        {% for cat in categorias %}
+                        <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="flex gap-2">
+                        <input type="text" name="nome" placeholder="Nova Subcategoria (ex: Anéis)"
+                            class="flex-1 p-3 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#146b8a] transition"
+                            required>
+                        <button type="submit"
+                            class="bg-[#146b8a] text-white px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#0d4e66] transition">Add</button>
+                    </div>
+                </form>
+
+                <div class="max-h-[300px] overflow-y-auto pr-2 space-y-4">
+                    {% set tem_subcategorias = categorias | selectattr('subcategorias') | list %}
+                    {% if not tem_subcategorias %}
+                    <p class="text-xs text-gray-300 text-center py-4">Nenhuma subcategoria cadastrada.</p>
+                    {% endif %}
+                    {% for cat in categorias %}
+                    {% if cat.subcategorias %}
+                    <div>
+                        <span class="text-[9px] font-black text-gray-300 uppercase tracking-widest mb-2 block">{{
+                            cat.nome }}</span>
+                        <div class="grid grid-cols-1 gap-2">
+                            {% for sub in cat.subcategorias %}
+                            <div
+                                class="flex items-center justify-between p-3 border border-gray-50 rounded-xl group hover:bg-gray-50 transition-colors">
+                                <span class="text-xs font-medium text-gray-500">{{ sub.nome }}</span>
+                                <form action="{{ url_for('admin_del_subcategoria', id=sub.id) }}" method="POST"
+                                    onsubmit="return confirm('Excluir subcategoria {{ sub.nome }}?')">
+                                    <button type="submit" class="text-gray-200 hover:text-red-400 transition p-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M3 6h18" />
+                                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULÁRIO DE CADASTRO -->
+    <section class="bg-white p-8 md:p-12 rounded-2xl border border-gray-100 shadow-sm mb-16 animate-on-scroll fade-in">
+        <div class="flex items-center gap-4 mb-10 border-b border-gray-50 pb-6">
+            <div class="w-10 h-10 bg-[#146b8a] rounded-full flex items-center justify-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-serif text-[#0d4e66]">Cadastrar Novo Produto</h2>
+        </div>
+
+        <form action="{{ url_for('admin') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nome da
+                        Peça</label>
+                    <input type="text" name="nome" placeholder="Ex: Anel Solitário Brilhante"
+                        class="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#146b8a] transition font-medium"
+                        required>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Categoria</label>
+                        <select name="categoria_id" id="categoria_select"
+                            class="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#146b8a] transition font-medium"
+                            onchange="atualizarSubcategorias()">
+                            <option value="">Selecionar...</option>
+                            {% for cat in categorias %}
+                            <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Subcategoria</label>
+                        <select name="subcategoria_id" id="subcategoria_select"
+                            class="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#146b8a] transition font-medium disabled:opacity-50"
+                            disabled>
+                            <option value="">Escolha a categoria primeiro</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Preço
+                        (R$)</label>
+                    <input type="text" name="preco" placeholder="129,90"
+                        class="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#146b8a] transition font-medium"
+                        required>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Descrição
+                        Curta (Vitrine)</label>
+                    <textarea name="descricao_curta" placeholder="Breve resumo para atrair o cliente..."
+                        class="w-full p-4 bg-gray-50 border-none rounded-xl h-24 focus:ring-2 focus:ring-[#146b8a] transition font-medium"></textarea>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Descrição
+                        Detalhada</label>
+                    <textarea name="descricao_longa" placeholder="Fale sobre materiais, tamanhos, e cuidados..."
+                        class="w-full p-4 bg-gray-50 border-none rounded-xl h-24 focus:ring-2 focus:ring-[#146b8a] transition font-medium"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    {% for i in range(1, 5) %}
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Foto {{
+                            i }} (URL)</label>
+                        <input type="text" name="imagem_{{ i }}" placeholder="http://..."
+                            class="w-full p-3 bg-gray-50 border-none rounded-xl text-[11px] focus:ring-2 focus:ring-[#146b8a] transition">
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Link ML
+                            (Opcional)</label>
+                        <input type="text" name="link_mercadolivre" placeholder="https://mercadolivre..."
+                            class="w-full p-3 bg-gray-50 border-none rounded-xl text-[11px] focus:ring-2 focus:ring-[#146b8a] transition">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">WhatsApp</label>
+                        <input type="text" name="whatsapp" placeholder="5511999999999"
+                            class="w-full p-3 bg-gray-50 border-none rounded-xl text-[11px] focus:ring-2 focus:ring-[#146b8a] transition">
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 pt-4">
+                <button type="submit"
+                    class="jewel-shine w-full bg-[#146b8a] text-white py-5 rounded-xl text-[11px] font-bold uppercase tracking-[0.4em] transition hover:bg-[#0d4e66] shadow-xl shadow-[#146b8a]/20">
+                    Cadastrar Produto no Sistema
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- LISTA DE PRODUTOS -->
+    <section class="animate-on-scroll fade-in">
+        <div class="flex items-center justify-between mb-8 border-b border-gray-100 pb-6">
+            <h2 class="text-2xl font-serif text-[#0d4e66]">Produtos no Catálogo</h2>
+            <span
+                class="bg-gray-100 text-gray-500 text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">{{
+                produtos | length }} Itens</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+            {% for pr in produtos %}
+            <div
+                class="bg-white p-6 rounded-2xl border border-gray-100 flex flex-col md:flex-row items-center gap-6 group hover:border-[#146b8a]/20 transition-all duration-300">
+                <div class="w-20 h-24 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 flex-shrink-0">
+                    {% if pr.get_imagem_principal() %}
+                    <img src="{{ pr.get_imagem_principal() }}" alt="{{ pr.nome }}" class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <span class="text-gray-200 text-[8px] uppercase">Sem Img</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex flex-wrap gap-2 mb-2 justify-center md:justify-start">
+                        {% if pr.categoria_ref %}
+                        <span
+                            class="text-[8px] bg-[#146b8a]/5 text-[#146b8a] px-2 py-0.5 rounded-sm font-bold uppercase tracking-tighter">
+                            {{ pr.categoria_ref.nome }}
+                        </span>
+                        {% elif pr.categoria %}
+                        <span
+                            class="text-[8px] bg-gray-100 text-gray-300 px-2 py-0.5 rounded-sm font-bold uppercase tracking-tighter">
+                            {{ pr.categoria }}
+                        </span>
+                        {% endif %}
+                        {% if pr.subcategoria_ref %}
+                        <span
+                            class="text-[8px] bg-gray-100 text-gray-400 px-2 py-0.5 rounded-sm font-bold uppercase tracking-tighter">
+                            {{ pr.subcategoria_ref.nome }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <h4 class="text-sm font-bold text-[#0d4e66] uppercase tracking-wider mb-1">{{ pr.nome }}</h4>
+                    <p class="text-xs text-gray-400 font-serif font-bold italic">R$ {{
+                        "%.2f"|format(pr.preco)|replace('.', ',') }}</p>
+                </div>
+                <div
+                    class="flex flex-col flex-wrap sm:flex-row justify-center md:justify-end gap-3 flex-shrink-0 mt-4 md:mt-0 w-full sm:w-auto">
+                    <!-- Toggle Visibilidade -->
+                    <form action="{{ url_for('admin_toggle_visibilidade', id=pr.id) }}" method="POST">
+                        <button type="submit"
+                            title="{% if pr.ativo %}Ocultar Produto{% else %}Mostrar Produto{% endif %}"
+                            class="px-4 py-3 {% if pr.ativo %}bg-blue-50 text-blue-500 hover:bg-blue-100{% else %}bg-gray-100 text-gray-400 hover:bg-gray-200{% endif %} text-[9px] font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-2 transition w-full sm:w-auto">
+                            {% if pr.ativo %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            Visível
+                            {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                                <path
+                                    d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                                <line x1="2" y1="2" x2="22" y2="22" />
+                            </svg>
+                            Oculto
+                            {% endif %}
+                        </button>
+                    </form>
+
+                    <a href="{{ url_for('editar', id=pr.id) }}"
+                        class="px-5 py-3 bg-gray-50 text-gray-500 text-[9px] font-bold uppercase tracking-widest rounded-lg hover:bg-gray-100 flex items-center justify-center transition w-full sm:w-auto">Editar</a>
+                    <!-- Deletar via POST -->
+                    <form action="{{ url_for('deletar', id=pr.id) }}" method="POST"
+                        onsubmit="return confirm('Excluir {{ pr.nome }} permanentemente?')">
+                        <button type="submit"
+                            class="w-full px-6 py-3 border border-red-50/50 text-red-300 text-[9px] font-bold uppercase tracking-widest rounded-lg hover:bg-red-50 hover:text-red-500 transition">Excluir</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-16 text-gray-300">
+                <p class="text-sm font-light uppercase tracking-widest">Nenhum produto cadastrado ainda.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    input::placeholder,
+    textarea::placeholder {
+        color: #CBD5E1;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: normal;
+    }
+</style>
+<script>
+    const subsPorCat = {
+        {% for cat in categorias %}
+    "{{ cat.id }}": [
+        {% for sub in cat.subcategorias %}
+    { id: { { sub.id } }, nome: "{{ sub.nome|e }}" },
+    {% endfor %}
+        ],
+    {% endfor %}
+    };
+
+    function atualizarSubcategorias() {
+        const catId = document.getElementById('categoria_select').value;
+        const subSelect = document.getElementById('subcategoria_select');
+
+        subSelect.innerHTML = '<option value="">Selecionar...</option>';
+
+        const subs = subsPorCat[catId];
+        if (catId && subs && subs.length > 0) {
+            subs.forEach(sub => {
+                const opt = document.createElement('option');
+                opt.value = sub.id;
+                opt.textContent = sub.nome;
+                subSelect.appendChild(opt);
+            });
+            subSelect.disabled = false;
+        } else {
+            subSelect.innerHTML = '<option value="">Sem subcategorias</option>';
+            subSelect.disabled = true;
+        }
+    }
+</script>
+{% endblock %}
