@@ -124,8 +124,8 @@
     var subcatData = {};
     {% for cat in categorias %}
     subcatData[{{ cat.id }}] = {
-        ids: { { cat.subcategorias | map(attribute = 'id') | list | tojson } },
-        nomes: { { cat.subcategorias | map(attribute = 'nome') | list | tojson } }
+        ids: {{ cat.subcategorias | map(attribute='id') | list | tojson }},
+        nomes: {{ cat.subcategorias | map(attribute='nome') | list | tojson }}
     };
     {% endfor %}
 

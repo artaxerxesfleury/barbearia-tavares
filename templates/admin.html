@@ -407,12 +407,12 @@
 <script>
     const subsPorCat = {
         {% for cat in categorias %}
-    "{{ cat.id }}": [
-        {% for sub in cat.subcategorias %}
-    { id: { { sub.id } }, nome: "{{ sub.nome|e }}" },
-    {% endfor %}
+        "{{ cat.id }}": [
+            {% for sub in cat.subcategorias %}
+            { id: {{ sub.id }}, nome: "{{ sub.nome|e }}" },
+            {% endfor %}
         ],
-    {% endfor %}
+        {% endfor %}
     };
 
     function atualizarSubcategorias() {
