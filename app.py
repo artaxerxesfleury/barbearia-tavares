@@ -143,7 +143,28 @@ def get_ml_access_token():
 
 with app.app_context():
     db.create_all()
-
+    # Tenta adicionar colunas caso o banco seja de versão anterior
+    try:
+        db.session.execute(db.text('ALTER TABLE produto ADD COLUMN video_url VARCHAR(500)'))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+    try:
+        db.session.execute(db.text('ALTER TABLE produto ADD COLUMN link_mercadolivre VARCHAR(500)'))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+    try:
+        db.session.execute(db.text('ALTER TABLE produto ADD COLUMN subcategoria_id INTEGER, ADD CONSTRAINT fk_subcategoria FOREIGN KEY(subcategoria_id) REFERENCES subcategoria(id)'))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+    try:
+        # SQLite doesn't nicely support ADD CONSTRAINT on ALTER TABLE sometimes without full syntax, but since it's just adding the column we can just add the column integer
+        db.session.execute(db.text('ALTER TABLE produto ADD COLUMN subcategoria_id INTEGER'))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
 
 # ============================================================
 # CONTEXT PROCESSOR
