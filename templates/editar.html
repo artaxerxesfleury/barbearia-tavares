@@ -81,7 +81,12 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Vídeo YT / ML</label>
+                        <input type="text" name="video_url" value="{{ p.video_url or '' }}"
+                            class="w-full p-3 bg-gray-50 border-none rounded-xl text-[11px] focus:ring-2 focus:ring-[#3C9AAE] transition">
+                    </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Mercado
                             Livre</label>
@@ -118,43 +123,46 @@
         letter-spacing: normal;
     }
 </style>
-<script>
-    // Dados de subcategorias injetados de forma segura com tojson
-    var subsPorCat = {{ categorias | map(attribute = 'id') | list | tojson }};
-    var subcatData = {};
-    {% for cat in categorias %}
-    subcatData[{{ cat.id }}] = {
-        ids: {{ cat.subcategorias | map(attribute='id') | list | tojson }},
-        nomes: {{ cat.subcategorias | map(attribute='nome') | list | tojson }}
-    };
-    {% endfor %}
-
-    function atualizarSubcategorias(preSelectedSubId) {
-        var catId = document.getElementById('categoria_select').value;
-        var subSelect = document.getElementById('subcategoria_select');
-        subSelect.innerHTML = '<option value="">Selecionar...</option>';
-
-        var data = subcatData[catId];
-        if (catId && data && data.ids.length > 0) {
-            for (var i = 0; i < data.ids.length; i++) {
-                var opt = document.createElement('option');
-                opt.value = data.ids[i];
-                opt.textContent = data.nomes[i];
-                if (preSelectedSubId !== null && data.ids[i] == preSelectedSubId) {
-                    opt.selected = true;
-                }
-                subSelect.appendChild(opt);
-            }
-            subSelect.disabled = false;
-        } else {
-            subSelect.disabled = true;
+    <!-- DATA INJECTION (Safe for IDE Linter) -->
+    <script id="categories-data" type="application/json">
+        {
+            {% for cat in categorias %}
+            "{{ cat.id }}": {
+                "ids": {{ cat.subcategorias | map(attribute='id') | list | tojson }},
+                "nomes": {{ cat.subcategorias | map(attribute='nome') | list | tojson }}
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
         }
-    }
+    </script>
+    <div id="page-metadata" data-current-sub-id="{{ (p.subcategoria_id or 0) | tojson | e }}"></div>
+    <script>
+        const subcatData = JSON.parse(document.getElementById('categories-data').textContent);
+        const subId = JSON.parse(document.getElementById('page-metadata').getAttribute('data-current-sub-id'));
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var currentSubId = {{ p.subcategoria_id | tojson
-    }};
-    atualizarSubcategorias(currentSubId);
-    });
-</script>
+        function atualizarSubcategorias(preSelectedSubId) {
+            var catId = document.getElementById('categoria_select').value;
+            var subSelect = document.getElementById('subcategoria_select');
+            subSelect.innerHTML = '<option value="">Selecionar...</option>';
+
+            var data = subcatData[catId];
+            if (catId && data && data.ids.length > 0) {
+                for (var i = 0; i < data.ids.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = data.ids[i];
+                    opt.textContent = data.nomes[i];
+                    if (preSelectedSubId !== null && data.ids[i] == preSelectedSubId) {
+                        opt.selected = true;
+                    }
+                    subSelect.appendChild(opt);
+                }
+                subSelect.disabled = false;
+            } else {
+                subSelect.disabled = true;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            atualizarSubcategorias(subId);
+        });
+    </script>
 {% endblock %}

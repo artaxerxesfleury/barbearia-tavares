@@ -131,7 +131,7 @@
         <div class="order-2 md:order-1 flex justify-center items-center p-8 relative animate-on-scroll fade-in">
             <div class="bg-[#3C9AAE] p-2 rounded-full overflow-hidden border-4 border-[#3C9AAE] logo-shape">
                 <img src="/static/juliana.png" alt="Juliana Damas"
-                    class="w-full max-w-[280px] object-cover relative z-10 transition-transform hover:scale-105 duration-500">
+                    class="w-full max-w-[280px] object-contain relative z-10 transition-transform hover:scale-105 duration-500">
             </div>
         </div>
         <div class="order-1 md:order-2 animate-on-scroll fade-in text-center md:text-left">
@@ -163,7 +163,7 @@
         class="block relative aspect-[3/4] overflow-hidden bg-gray-50 mb-6 border border-gray-100 transition-all duration-700 group-hover:border-[#3C9AAE]/30">
         {% if p.get_imagem_principal() %}
         <img src="{{ p.get_imagem_principal() }}" alt="{{ p.nome }}"
-            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+            class="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
         {% else %}
         <div class="w-full h-full flex items-center justify-center bg-gray-100">
             <span class="text-gray-300 text-xs uppercase tracking-widest">Sem Imagem</span>
@@ -183,7 +183,8 @@
         <p class="text-[#3C9AAE] font-serif font-bold text-lg mb-6 tracking-tight">R$
             {{ "%.2f"|format(p.preco)|replace('.', ',') }}</p>
         <button
-            onclick='addToCart({{ {"id": p.id, "nome": p.nome, "preco": p.preco, "img": p.get_imagem_principal(), "ml": p.link_mercadolivre or ""} | tojson }})'
+            data-produto='{{ {"id": p.id, "nome": p.nome, "preco": p.preco, "img": p.get_imagem_principal(), "ml": p.link_mercadolivre or ""} | tojson }}'
+            onclick='addToCart(JSON.parse(this.getAttribute("data-produto")))'
             class="jewel-shine w-full border border-gray-100 text-gray-400 py-4 text-[9px] uppercase tracking-[0.3em] font-bold hover:bg-[#3C9AAE] hover:text-white hover:border-[#3C9AAE] transition-all duration-500">
             Adicionar ao Carrinho
         </button>

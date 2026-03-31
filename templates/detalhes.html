@@ -45,7 +45,7 @@
             <div class="aspect-square bg-gray-100 overflow-hidden border border-gray-100 shadow-inner">
                 {% if p.get_imagem_principal() %}
                 <img id="main-img" src="{{ p.get_imagem_principal() }}" alt="{{ p.nome }}"
-                    class="w-full h-full object-cover transition-opacity duration-500">
+                    class="w-full h-full object-contain transition-opacity duration-500">
                 {% else %}
                 <div class="w-full h-full flex items-center justify-center">
                     <span class="text-gray-300 text-xs uppercase tracking-widest">Sem Imagem</span>
@@ -59,7 +59,7 @@
                 <button onclick="trocarImagem('{{ img }}')"
                     class="aspect-square bg-gray-100 border border-transparent hover:border-[#3C9AAE] transition overflow-hidden focus:border-[#3C9AAE] focus:outline-none">
                     <img src="{{ img }}" alt="{{ p.nome }} - foto {{ loop.index }}"
-                        class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                        class="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity">
                 </button>
                 {% endfor %}
             </div>
@@ -101,11 +101,34 @@
 
             <div class="flex flex-col gap-4">
                 <button
-                    onclick='addToCart({{ {"id": p.id, "nome": p.nome, "preco": p.preco, "img": p.get_imagem_principal(), "ml": p.link_mercadolivre or ""} | tojson }})'
+                    data-produto='{{ {"id": p.id, "nome": p.nome, "preco": p.preco, "img": p.get_imagem_principal(), "ml": p.link_mercadolivre or ""} | tojson }}'
+                    onclick='addToCart(JSON.parse(this.getAttribute("data-produto")))'
                     class="jewel-shine w-full bg-[#3C9AAE] text-white text-center py-5 text-xs font-bold tracking-[0.2em] uppercase transition hover:bg-[#2B7A8F] shadow-lg shadow-[#3C9AAE]/20">
                     Adicionar ao Carrinho
                 </button>
                 <div class="flex flex-col sm:flex-row gap-4">
+                    {% if p.video_url %}
+                    <div class="mt-8 mb-6">
+                        <h4 class="text-[10px] uppercase tracking-widest text-[#3C9AAE] font-bold mb-3 border-b border-gray-100 pb-2">
+                            Vídeo do Produto
+                        </h4>
+                        <div class="aspect-video w-full rounded-xl overflow-hidden shadow-sm bg-gray-50">
+                            {% if 'youtube.com' in p.video_url or 'youtu.be' in p.video_url %}
+                                <iframe class="w-full h-full" src="{{ p.video_url | replace('watch?v=', 'embed/') | replace('youtu.be/', 'youtube.com/embed/') }}" 
+                                    title="YouTube video player" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            {% else %}
+                                <video controls class="w-full h-full">
+                                    <source src="{{ p.video_url }}" type="video/mp4">
+                                    Seu navegador não suporta vídeos.
+                                </video>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
                     {% if p.whatsapp %}
                     <a href="{{ p.whatsapp }}" target="_blank" rel="noopener"
                         class="jewel-shine flex-1 bg-[#25D366] text-white text-center py-4 text-[10px] font-bold tracking-[0.2em] uppercase transition hover:bg-[#128C7E]">
