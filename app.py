@@ -432,6 +432,94 @@ def admin_api_mercadolivre():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/admin/ml/sync_all', methods=['POST'])
+@login_obrigatorio
+def admin_ml_sync_all():
+    access_token = get_ml_access_token()
+    if not access_token:
+        return jsonify({'status': 'error', 'message': 'Mercado Livre não conectado ou token inválido.'}), 401
+
+    headers_api = {'Authorization': f'Bearer {access_token}'}
+    
+    produtos = Produto.query.filter(Produto.link_mercadolivre.isnot(None), Produto.link_mercadolivre != '').all()
+    
+    count_updated = 0
+    count_errors = 0
+    count_inativados = 0
+
+    for produto in produtos:
+        url = produto.link_mercadolivre
+        match_catalogo = re.search(r'/p/(MLB[-]?\d+)', url, re.IGNORECASE)
+        match_normal = re.search(r'(MLB)[-]?(\d+)', url, re.IGNORECASE)
+
+        ml_id = None
+        if match_catalogo:
+            cat_id = match_catalogo.group(1).replace('-', '')
+            if access_token:
+                try:
+                    resp_cat = requests.get(f'https://api.mercadolibre.com/products/{cat_id}', headers=headers_api, timeout=5)
+                    if resp_cat.status_code == 200:
+                        buy_box = resp_cat.json().get('buy_box_winner', {})
+                        if buy_box and buy_box.get('item_id'):
+                            ml_id = buy_box.get('item_id')
+                except:
+                    pass
+            if not ml_id: ml_id = cat_id
+        elif match_normal:
+            ml_id = f"MLB{match_normal.group(2)}"
+        
+        if not ml_id:
+            count_errors += 1
+            continue
+
+        try:
+            resp_item = requests.get(f'https://api.mercadolibre.com/items/{ml_id}', headers=headers_api, timeout=8)
+            if resp_item.status_code == 200:
+                data = resp_item.json()
+                
+                status = data.get('status')
+                available_quantity = data.get('available_quantity', 0)
+                
+                if status != 'active' or available_quantity <= 0:
+                    produto.ativo = False
+                    count_inativados += 1
+                else:
+                    produto.ativo = True
+                
+                produto.nome = data.get('title', produto.nome)
+                produto.preco = data.get('price', produto.preco)
+                
+                resp_desc = requests.get(f'https://api.mercadolibre.com/items/{ml_id}/description', headers=headers_api, timeout=5)
+                if resp_desc.status_code == 200:
+                    produto.descricao_longa = resp_desc.json().get('plain_text', '')
+
+                atributos = data.get('attributes', [])
+                lista_atributos = [f"{attr.get('name')}: {attr.get('value_name')}" for attr in atributos if attr.get('value_name')]
+                if lista_atributos:
+                    produto.descricao = ' | '.join(lista_atributos)
+
+                imagens = [pic.get('secure_url') or pic.get('url') for pic in data.get('pictures', [])][:4]
+                if imagens:
+                    produto.imagens_url = ','.join(imagens)
+
+                count_updated += 1
+            else:
+                count_errors += 1
+        except Exception as e:
+            count_errors += 1
+
+    db.session.commit()
+    
+    msg = f"Sincronização concluída! {count_updated} produtos atualizados."
+    if count_inativados > 0:
+        msg += f" {count_inativados} produtos foram inativados por falta de estoque/pausados."
+    if count_errors > 0:
+        msg += f" {count_errors} links falharam."
+        
+    flash(msg, 'success')
+    return jsonify({'status': 'ok', 'message': msg})
+
+
 
 
 @app.route('/admin', methods=['GET', 'POST'])
