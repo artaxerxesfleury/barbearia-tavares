@@ -126,23 +126,28 @@
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar bg-white"></div>
         
-        <!-- CALCULO DE FRETE -->
-        <div class="px-8 pb-4 border-t border-gray-100 bg-[#fafafa] pt-6 flex-shrink-0" id="frete-container" style="display: none;">
-            <label class="block text-[9px] font-black text-[#2A6B7A] uppercase tracking-[0.3em] mb-3 flex justify-between">
-                <span>Calcular Entrega</span>
-                <span id="frete-loading" class="hidden text-[#3C9AAE]">Calculando...</span>
-            </label>
-            <div class="flex gap-2">
-                <input type="text" id="cart-cep" placeholder="00000-000" maxlength="9" oninput="formatCEP(this)"
-                    class="w-full px-4 py-3 bg-white border border-gray-200 rounded-sm text-sm focus:outline-none focus:border-[#3C9AAE] transition-all font-bold text-[#2A6B7A] placeholder-gray-300">
-                <button onclick="calcularFrete()" class="px-4 bg-[#2A6B7A] text-white hover:bg-[#3C9AAE] rounded-sm text-[9px] font-black uppercase tracking-widest transition">Calcular</button>
+        <!-- CALCULO DE FRETE PREMIUM -->
+        <div class="px-8 pb-6 border-t border-gray-100 bg-[#fafafa] pt-8 flex-shrink-0" id="frete-container" style="display: none;">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2A6B7A" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="text-[10px] font-black text-[#2A6B7A] uppercase tracking-[0.25em]">Calcular Entrega</span>
+                </div>
+                <span id="frete-loading" class="hidden text-[9px] font-bold text-[#3C9AAE] animate-pulse uppercase tracking-widest">Calculando...</span>
             </div>
-            <div id="frete-results" class="mt-4 space-y-2 hidden">
+            
+            <div class="flex gap-1 p-1 bg-white border border-gray-200 rounded-sm">
+                <input type="text" id="cart-cep" placeholder="00000-000" maxlength="9" oninput="formatCEP(this)"
+                    class="flex-1 px-4 py-3 bg-transparent border-none text-sm focus:outline-none focus:ring-0 font-bold text-[#2A6B7A] placeholder-gray-300">
+                <button onclick="calcularFrete()" class="px-5 bg-[#2A6B7A] text-white hover:bg-[#3C9AAE] rounded-sm text-[9px] font-black uppercase tracking-widest transition-all">Calcular</button>
+            </div>
+            
+            <div id="frete-results" class="mt-5 space-y-3 hidden">
                 <!-- Javascript vai injetar os precos de PAC/Sedex aqui -->
             </div>
         </div>
         
-        <div class="p-8 border-t border-gray-100 bg-[#fafafa] space-y-4 flex-shrink-0">
+        <div class="p-8 border-t border-gray-100 bg-[#fafafa] space-y-5 flex-shrink-0">
             <div class="flex justify-between items-center mb-2">
                 <span class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-black">Investimento Total</span>
                 <span id="cart-total" class="text-2xl font-serif font-black text-[#3C9AAE]">R$ 0,00</span>
@@ -161,7 +166,7 @@
                     <span>Comprar via Mercado Pago</span>
                 </button>
             </div>
-            <p class="text-[8px] text-gray-300 text-center uppercase tracking-widest font-bold">Parcelamento em até 12x disponível</p>
+            <p class="text-[9px] text-[#2A6B7A]/60 text-center uppercase tracking-[0.2em] font-black">Parcelamento em até 12x disponível</p>
         </div>
     </div>
 

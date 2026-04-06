@@ -60,7 +60,7 @@ function render_card_produto($p) {
             </div>
         </a>
         <div class="text-center pt-5 pb-2 px-1 flex-1 flex flex-col justify-between gap-3">
-            <h4 class="text-[#2A6B7A] text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.2em] leading-relaxed group-hover:text-[#3C9AAE] transition-colors duration-500 px-2">
+            <h4 class="text-[#2A6B7A] text-[11px] md:text-[12px] font-extrabold uppercase tracking-[0.2em] leading-relaxed group-hover:text-[#3C9AAE] transition-colors duration-500 px-2 min-h-[40px] flex items-center justify-center">
                 <?php echo htmlspecialchars($p['nome']); ?>
             </h4>
             <div>
@@ -115,17 +115,17 @@ function render_card_produto($p) {
 </header>
 
 <!-- FILTROS POR CATEGORIA -->
-<nav class="bg-white/90 backdrop-blur-xl border-b border-gray-100 sticky top-[56px] md:top-[64px] z-40 overflow-x-auto no-scrollbar">
-    <div class="px-4 md:px-6 py-3 flex items-center gap-2 min-w-max mx-auto">
+<nav class="bg-white/95 backdrop-blur-2xl border-b border-gray-100 sticky top-[56px] md:top-[64px] z-40 overflow-x-auto no-scrollbar py-1">
+    <div class="px-4 md:px-8 py-4 flex items-center gap-3 min-w-max mx-auto justify-start md:justify-center">
         <a href="index.php#vitrine"
-            class="px-4 py-2 text-[9px] font-bold uppercase tracking-[0.18em] transition-all rounded-full whitespace-nowrap
-                <?php echo !$cat_id ? 'bg-[#3C9AAE] text-white shadow-lg shadow-[#3C9AAE]/20' : 'text-gray-400 hover:text-[#3C9AAE] hover:bg-[#3C9AAE]/8'; ?>">
+            class="px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] transition-all rounded-full border-2 whitespace-nowrap
+                <?php echo !$cat_id ? 'bg-[#3C9AAE] text-white border-[#3C9AAE] shadow-xl shadow-[#3C9AAE]/20' : 'text-gray-400 border-gray-100 hover:border-[#3C9AAE]/30 hover:text-[#3C9AAE] hover:bg-gray-50'; ?>">
             Todos
         </a>
         <?php foreach ($categorias as $cat): ?>
         <a href="index.php?cat=<?php echo $cat['id']; ?>#vitrine"
-            class="px-4 py-2 text-[9px] font-bold uppercase tracking-[0.18em] transition-all rounded-full whitespace-nowrap
-                <?php echo $cat_id == $cat['id'] ? 'bg-[#3C9AAE] text-white shadow-lg shadow-[#3C9AAE]/20' : 'text-gray-400 hover:text-[#3C9AAE] hover:bg-[#3C9AAE]/8'; ?>">
+            class="px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] transition-all rounded-full border-2 whitespace-nowrap
+                <?php echo $cat_id == $cat['id'] ? 'bg-[#3C9AAE] text-white border-[#3C9AAE] shadow-xl shadow-[#3C9AAE]/20' : 'text-gray-400 border-gray-100 hover:border-[#3C9AAE]/30 hover:text-[#3C9AAE] hover:bg-gray-50'; ?>">
             <?php echo htmlspecialchars($cat['nome']); ?>
         </a>
         <?php endforeach; ?>
@@ -183,8 +183,8 @@ endif;
             <?php endif; ?>
         </div>
 
-        <!-- Grid de produtos -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-16">
+        <!-- Grid de produtos: Redimensionado para 1 coluna no mobile para peças saltarem aos olhos -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-10 gap-y-12 md:gap-y-20 px-2 md:px-0">
             <?php if ($vitrine_home): ?>
                 <?php foreach ($vitrine_home as $cat_nome => $items): ?>
                     <!-- Separador de Categoria -->
