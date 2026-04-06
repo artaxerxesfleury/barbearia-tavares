@@ -126,6 +126,22 @@
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar bg-white"></div>
         
+        <!-- CALCULO DE FRETE -->
+        <div class="px-8 pb-4 border-t border-gray-100 bg-[#fafafa] pt-6 flex-shrink-0" id="frete-container" style="display: none;">
+            <label class="block text-[9px] font-black text-[#2A6B7A] uppercase tracking-[0.3em] mb-3 flex justify-between">
+                <span>Calcular Entrega</span>
+                <span id="frete-loading" class="hidden text-[#3C9AAE]">Calculando...</span>
+            </label>
+            <div class="flex gap-2">
+                <input type="text" id="cart-cep" placeholder="00000-000" maxlength="9" oninput="formatCEP(this)"
+                    class="w-full px-4 py-3 bg-white border border-gray-200 rounded-sm text-sm focus:outline-none focus:border-[#3C9AAE] transition-all font-bold text-[#2A6B7A] placeholder-gray-300">
+                <button onclick="calcularFrete()" class="px-4 bg-[#2A6B7A] text-white hover:bg-[#3C9AAE] rounded-sm text-[9px] font-black uppercase tracking-widest transition">Calcular</button>
+            </div>
+            <div id="frete-results" class="mt-4 space-y-2 hidden">
+                <!-- Javascript vai injetar os precos de PAC/Sedex aqui -->
+            </div>
+        </div>
+        
         <div class="p-8 border-t border-gray-100 bg-[#fafafa] space-y-4 flex-shrink-0">
             <div class="flex justify-between items-center mb-2">
                 <span class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-black">Investimento Total</span>

@@ -4,6 +4,68 @@
 */
 
 let cart = JSON.parse(localStorage.getItem('damas_cart') || '[]');
+let selectedFrete = null;
+
+function formatCEP(input) {
+    let v = input.value.replace(/\D/g, '');
+    if (v.length > 5) v = v.substring(0,5) + '-' + v.substring(5, 8);
+    input.value = v;
+}
+
+async function calcularFrete() {
+    const cepInput = document.getElementById('cart-cep');
+    if (!cepInput) return;
+    const cep = cepInput.value.replace(/\D/g, '');
+    if (cep.length !== 8) {
+        showNotification('Digite um CEP válido com 8 números.', 'info');
+        return;
+    }
+
+    const loading = document.getElementById('frete-loading');
+    const results = document.getElementById('frete-results');
+    
+    if (loading) loading.classList.remove('hidden');
+    if (results) results.classList.add('hidden');
+    
+    try {
+        const response = await fetch('/api_frete.php?cep=' + cep);
+        const data = await response.json();
+        
+        if (!response.ok) throw new Error(data.error || 'Erro ao calcular frete.');
+        
+        let html = `<p class="text-[9px] text-[#3C9AAE] uppercase tracking-widest font-bold mb-2 break-words">Destino: ${data.cidade}</p>`;
+        
+        data.opcoes.forEach((op, index) => {
+            const precoFormat = op.preco.toFixed(2).replace('.', ',');
+            html += `
+                <label class="flex items-center justify-between p-3 border border-gray-100 rounded-sm cursor-pointer hover:bg-white transition-all bg-gray-50/50 mb-2">
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="frete_opcao" value="${index}" onchange="selecionarFrete('${op.tipo}', ${op.preco})" class="text-[#3C9AAE] focus:ring-[#3C9AAE]">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] font-bold text-[#2A6B7A] uppercase">${op.tipo}</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider">${op.prazo}</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-black text-[#3C9AAE]">R$ ${precoFormat}</span>
+                </label>
+            `;
+        });
+        
+        if (results) {
+            results.innerHTML = html;
+            results.classList.remove('hidden');
+        }
+    } catch (err) {
+        showNotification(err.message, 'info');
+    } finally {
+        if (loading) loading.classList.add('hidden');
+    }
+}
+
+function selecionarFrete(tipo, preco) {
+    selectedFrete = { tipo, preco };
+    renderCart(); // Atualiza o total
+}
 
 /**
  * Abre/Fecha o drawer do carrinho
@@ -201,7 +263,25 @@ function renderCart() {
         container.appendChild(itemEl);
     });
 
+    if (selectedFrete) {
+        total += selectedFrete.preco;
+        const freteEl = document.createElement('div');
+        freteEl.className = 'flex justify-between items-center border-t border-dashed border-gray-200 pt-3 mt-2 mb-2';
+        const freteFormatado = selectedFrete.preco.toFixed(2).replace('.', ',');
+        freteEl.innerHTML = `
+            <span class="text-[10px] uppercase font-bold text-[#2A6B7A]">📦 Entrega: ${selectedFrete.tipo}</span>
+            <span class="text-xs font-black text-[#3C9AAE]">+ R$ ${freteFormatado}</span>
+        `;
+        container.appendChild(freteEl);
+    }
+
     totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+
+    // Visibilidade do painel de frete
+    const freteCont = document.getElementById('frete-container');
+    if (freteCont) {
+        freteCont.style.display = cart.length > 0 ? 'block' : 'none';
+    }
 }
 
 /**
@@ -297,6 +377,11 @@ async function processMPCheckout() {
         return;
     }
 
+    if (selectedFrete === null) {
+        alert('Por favor, digite seu CEP e escolha um Frete (PAC ou SEDEX) antes de pagar.');
+        return;
+    }
+
     const btn = document.getElementById('btn-mp-checkout');
     const originalText = btn.innerHTML;
     
@@ -311,7 +396,7 @@ async function processMPCheckout() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ cart: cart })
+            body: JSON.stringify({ cart: cart, frete: selectedFrete })
         });
 
         const data = await response.json();

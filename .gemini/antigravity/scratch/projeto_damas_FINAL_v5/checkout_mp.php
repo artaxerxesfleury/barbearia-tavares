@@ -24,6 +24,11 @@ try {
         throw new Exception("Carrinho vazio.");
     }
     
+    $frete = $data['frete'] ?? null;
+    if (empty($frete) || !isset($frete['preco'])) {
+        throw new Exception("Frete não calculado. Retorne e preencha seu CEP.");
+    }
+    
     // 2. Obtém o Token válido (re-autenticando se necessário via ml_token_manager)
     $access_token = get_valid_ml_token();
     
@@ -70,9 +75,10 @@ try {
         "auto_return" => "approved",
         // Statement Descriptor: nome que aparece na fatura do cartão
         "statement_descriptor" => "DAMAS ACESS",
-        // Revertendo o frete para não especificado já que a conta não tem me2 ativo fora do ML
+        // Frete Customizado somado na hora do Checkout
         "shipments" => [
-            "mode" => "not_specified" 
+            "mode" => "custom", 
+            "cost" => (float)$frete['preco']
         ]
     ];
     
