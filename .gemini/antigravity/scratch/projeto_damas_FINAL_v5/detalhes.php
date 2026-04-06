@@ -81,6 +81,17 @@ if (!empty($p['descricao_curta'])) {
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
+            
+            <!-- Descrição Longa (Mergulhada aqui para manter o layout compacto no PC) -->
+            <?php if (!empty($p['descricao_longa'])): ?>
+            <div class="pt-12 border-t border-gray-50 mt-4 overflow-hidden">
+                <h3 class="text-[10px] font-black text-[#2A6B7A] uppercase tracking-[0.25em] mb-6 text-gray-400">Sobre a Peça</h3>
+                <div class="text-[14px] text-gray-500 leading-relaxed font-medium max-w-prose">
+                    <?php echo nl2br(htmlspecialchars($p['descricao_longa'])); ?>
+                    <p class="mt-6 text-[10px] text-gray-300 italic">* Imagem meramente ilustrativa. Garantia Rommanel inclusa.</p>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
 
         <!-- ===== INFORMAÇÕES (LADO DIREITO - STICKY NO PC) ===== -->
@@ -120,16 +131,6 @@ if (!empty($p['descricao_curta'])) {
                         </span>
                     </div>
                     <?php endforeach; ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <!-- Descrição Longa -->
-            <?php if (!empty($p['descricao_longa'])): ?>
-            <div class="mb-12">
-                <h3 class="text-[10px] font-black text-[#2A6B7A] uppercase tracking-[0.25em] mb-4 text-gray-400">Sobre a Peça</h3>
-                <div class="text-[14px] text-gray-500 leading-relaxed font-medium max-w-prose">
-                    <?php echo nl2br(htmlspecialchars($p['descricao_longa'])); ?>
                 </div>
             </div>
             <?php endif; ?>
