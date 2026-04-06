@@ -1,0 +1,15 @@
+# Bloquear acesso a arquivos sensíveis
+<FilesMatch "^\.env|config\.json|admin\.7z|.*\.sql$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Otimização de Cache e Segurança
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Desativar listagem de diretório
+Options -Indexes
