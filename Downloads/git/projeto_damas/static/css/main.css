@@ -117,11 +117,11 @@ a[class*='border-white'] {
 
     0%,
     100% {
-        box-shadow: 0 0 0 rgba(20, 107, 138, 0);
+        box-shadow: 0 0 0 rgba(60, 154, 174, 0);
     }
 
     50% {
-        box-shadow: 0 0 15px rgba(20, 107, 138, 0.4);
+        box-shadow: 0 0 15px rgba(60, 154, 174, 0.4);
     }
 }
 
@@ -134,17 +134,17 @@ a[class*='border-white'] {
 }
 
 .nav-link:hover {
-    color: #146b8a;
-    background-color: rgba(20, 107, 138, 0.08);
+    color: #3C9AAE;
+    background-color: rgba(60, 154, 174, 0.08);
     backdrop-filter: blur(8px);
 }
 
 /* Header & Special Backgrounds */
 .diamond-header {
     background:
-        linear-gradient(115deg, rgba(20, 107, 138, 0.45), rgba(13, 78, 102, 0.4)),
+        linear-gradient(115deg, rgba(60, 154, 174, 0.45), rgba(43, 122, 143, 0.4)),
         linear-gradient(245deg, rgba(255, 255, 255, 0.05) 0%, transparent 70%),
-        linear-gradient(180deg, rgba(20, 107, 138, 0.2) 0%, rgba(13, 78, 102, 0.3) 100%);
+        linear-gradient(180deg, rgba(60, 154, 174, 0.2) 0%, rgba(43, 122, 143, 0.3) 100%);
     position: relative;
 }
 
@@ -193,7 +193,7 @@ a[class*='border-white'] {
 .cart-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(13, 78, 102, 0.1);
+    background: rgba(43, 122, 143, 0.1);
     backdrop-filter: blur(4px);
     z-index: 90;
     opacity: 0;
@@ -210,7 +210,7 @@ a[class*='border-white'] {
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #146b8a;
+    background: #3C9AAE;
     color: white;
     font-size: 9px;
     width: 16px;

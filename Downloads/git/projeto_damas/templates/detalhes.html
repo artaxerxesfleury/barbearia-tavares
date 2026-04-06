@@ -21,21 +21,21 @@
     <!-- Breadcrumb -->
     <div class="mb-8 animate-on-scroll fade-in">
         <a href="{{ url_for('index') }}"
-            class="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-[#146b8a] transition">Início</a>
+            class="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-[#3C9AAE] transition">Início</a>
         {% if p.categoria_ref %}
         <span class="text-gray-200 mx-2">›</span>
         <a href="{{ url_for('index', cat=p.categoria_id) }}"
-            class="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-[#146b8a] transition">{{
+            class="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-[#3C9AAE] transition">{{
             p.categoria_ref.nome }}</a>
         {% endif %}
         {% if p.subcategoria_ref %}
         <span class="text-gray-200 mx-2">›</span>
         <a href="{{ url_for('index', cat=p.categoria_id, sub=p.subcategoria_id) }}"
-            class="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-[#146b8a] transition">{{
+            class="text-[9px] font-bold text-gray-300 uppercase tracking-widest hover:text-[#3C9AAE] transition">{{
             p.subcategoria_ref.nome }}</a>
         {% endif %}
         <span class="text-gray-200 mx-2">›</span>
-        <span class="text-[9px] font-bold text-[#146b8a] uppercase tracking-widest">{{ p.nome }}</span>
+        <span class="text-[9px] font-bold text-[#3C9AAE] uppercase tracking-widest">{{ p.nome }}</span>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 animate-on-scroll fade-in">
@@ -57,7 +57,7 @@
             <div class="grid grid-cols-4 gap-2 md:gap-4">
                 {% for img in todas_imgs %}
                 <button onclick="trocarImagem('{{ img }}')"
-                    class="aspect-square bg-gray-100 border border-transparent hover:border-[#146b8a] transition overflow-hidden focus:border-[#146b8a] focus:outline-none">
+                    class="aspect-square bg-gray-100 border border-transparent hover:border-[#3C9AAE] transition overflow-hidden focus:border-[#3C9AAE] focus:outline-none">
                     <img src="{{ img }}" alt="{{ p.nome }} - foto {{ loop.index }}"
                         class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
                 </button>
@@ -72,11 +72,11 @@
             <div class="flex gap-2 mb-4">
                 {% if p.categoria_ref %}
                 <span
-                    class="text-[9px] uppercase tracking-[0.3em] text-[#146b8a] font-bold bg-[#146b8a]/5 px-3 py-1 rounded-full">{{
+                    class="text-[9px] uppercase tracking-[0.3em] text-[#3C9AAE] font-bold bg-[#3C9AAE]/5 px-3 py-1 rounded-full">{{
                     p.categoria_ref.nome }}</span>
                 {% elif p.categoria %}
                 <span
-                    class="text-[9px] uppercase tracking-[0.3em] text-[#146b8a] font-bold bg-[#146b8a]/5 px-3 py-1 rounded-full">{{
+                    class="text-[9px] uppercase tracking-[0.3em] text-[#3C9AAE] font-bold bg-[#3C9AAE]/5 px-3 py-1 rounded-full">{{
                     p.categoria }}</span>
                 {% endif %}
                 {% if p.subcategoria_ref %}
@@ -86,8 +86,8 @@
                 {% endif %}
             </div>
 
-            <h1 class="text-4xl md:text-5xl font-serif font-black mb-6 leading-tight text-[#0d4e66]">{{ p.nome }}</h1>
-            <div class="text-2xl font-serif font-bold text-[#146b8a] mb-8">R$ {{ "%.2f"|format(p.preco)|replace('.',
+            <h1 class="text-4xl md:text-5xl font-serif font-black mb-6 leading-tight text-[#2B7A8F]">{{ p.nome }}</h1>
+            <div class="text-2xl font-serif font-bold text-[#3C9AAE] mb-8">R$ {{ "%.2f"|format(p.preco)|replace('.',
                 ',') }}</div>
 
             <div class="prose prose-sm max-w-none text-[#4B5563] font-light leading-relaxed mb-10 space-y-4">
@@ -102,7 +102,7 @@
             <div class="flex flex-col gap-4">
                 <button
                     onclick='addToCart({{ {"id": p.id, "nome": p.nome, "preco": p.preco, "img": p.get_imagem_principal(), "ml": p.link_mercadolivre or ""} | tojson }})'
-                    class="jewel-shine w-full bg-[#146b8a] text-white text-center py-5 text-xs font-bold tracking-[0.2em] uppercase transition hover:bg-[#0d4e66] shadow-lg shadow-[#146b8a]/20">
+                    class="jewel-shine w-full bg-[#3C9AAE] text-white text-center py-5 text-xs font-bold tracking-[0.2em] uppercase transition hover:bg-[#2B7A8F] shadow-lg shadow-[#3C9AAE]/20">
                     Adicionar ao Carrinho
                 </button>
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -114,7 +114,7 @@
                     {% endif %}
                     {% if p.link_mercadolivre %}
                     <a href="{{ p.link_mercadolivre }}" target="_blank" rel="noopener"
-                        class="jewel-shine flex-1 border border-[#0d4e66] text-[#0d4e66] text-center py-4 text-[10px] font-bold tracking-[0.2em] uppercase transition hover:bg-[#0d4e66] hover:text-white">
+                        class="jewel-shine flex-1 border border-[#2B7A8F] text-[#2B7A8F] text-center py-4 text-[10px] font-bold tracking-[0.2em] uppercase transition hover:bg-[#2B7A8F] hover:text-white">
                         Mercado Livre
                     </a>
                     {% endif %}

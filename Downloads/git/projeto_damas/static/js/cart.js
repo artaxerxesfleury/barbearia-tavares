@@ -60,7 +60,7 @@ function showNotification(msg, type = 'success') {
         ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`
         : `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`;
 
-    const bg = type === 'success' ? '#146b8a' : '#0d4e66';
+    const bg = type === 'success' ? '#3C9AAE' : '#2B7A8F';
 
     toast.innerHTML = `${icon}<span>${msg}</span>`;
     toast.style.cssText = `
@@ -187,8 +187,8 @@ function renderCart() {
                 ${item.img ? `<img src="${item.img}" alt="${item.nome}" class="w-full h-full object-cover">` : '<div class="w-full h-full bg-gray-100"></div>'}
             </div>
             <div class="flex-1 min-w-0">
-                <h4 class="text-[10px] font-bold text-[#0d4e66] uppercase tracking-wider leading-tight truncate">${item.nome}</h4>
-                <p class="text-[11px] text-[#146b8a] font-serif font-bold mt-1">R$ ${precoFormatado}</p>
+                <h4 class="text-[10px] font-bold text-[#2B7A8F] uppercase tracking-wider leading-tight truncate">${item.nome}</h4>
+                <p class="text-[11px] text-[#3C9AAE] font-serif font-bold mt-1">R$ ${precoFormatado}</p>
                 ${isML ? '<span class="text-[7px] text-amber-600 font-bold uppercase tracking-tighter bg-amber-50 px-1.5 py-0.5 rounded-sm mt-1 inline-block">Pagamento via ML*</span>' : ''}
             </div>
             <button onclick="removeFromCart(${index})" title="Remover" class="text-gray-300 hover:text-red-400 transition ml-2 flex-shrink-0 p-1">

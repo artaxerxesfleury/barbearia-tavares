@@ -60,7 +60,17 @@ $config['refresh_token'] = $token_data['refresh_token'] ?? '';
 $config['user_id']       = (string)($token_data['user_id'] ?? '');
 $config['token_expires'] = time() + (int)($token_data['expires_in'] ?? 21600);
 
-file_put_contents($config_path, json_encode($config, JSON_PRETTY_PRINT));
+if (file_exists($config_path)) {
+    @chmod($config_path, 0666);
+}
+
+$written = @file_put_contents($config_path, json_encode($config, JSON_PRETTY_PRINT));
+
+if ($written === false) {
+    $msg = "ERRO FATAL: A Hostinger bloqueou a gravação do token. Dê permissão de escrita (CHMOD 666 ou 777) no arquivo admin/ml_config.json";
+    header("Location: index.php?erro=" . urlencode($msg));
+    exit;
+}
 
 header("Location: index.php?sucesso=" . urlencode("✅ Mercado Livre conectado com sucesso!"));
 exit;

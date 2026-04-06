@@ -70,9 +70,9 @@ try {
         "auto_return" => "approved",
         // Statement Descriptor: nome que aparece na fatura do cartão
         "statement_descriptor" => "DAMAS ACESS",
-        // Requerer informações de envio para integracao completa
+        // Revertendo o frete para não especificado já que a conta não tem me2 ativo fora do ML
         "shipments" => [
-            "mode" => "not_specified" // Retirando fretes rigorosos. O MP cuida de solicitar endereco ao cliente, ou o cliente retira. Caso queira Mercado Envios 'mE2' p/ cada item, precisa vincular ids exatos.
+            "mode" => "not_specified" 
         ]
     ];
     
